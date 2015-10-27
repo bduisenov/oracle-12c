@@ -133,7 +133,20 @@ Should you want to modify & build your own image:
 4) `$ docker build -t oracle-12c:step1 step1`
 
 5) `$ docker run --privileged -ti --name step1 oracle-12c:step1 /bin/bash`
-
+### Troubleshooting
+ 	if you face problems with installation, like `ORA-12547: TNS: lost contact` you should follow this (assumed that `docker` is running using `docker-machine`):
+ 	1) run `$ docker run --net host --privileged -ti --name step1 oracle-12c:step1 /bin/bash` instead of command at point 5
+ 	2) ` # yum install tigervnc-server xterm`
+ 	3) ` # vncserver` and type password
+ 	4) ` # export DISPLAY=:1`
+ 	5) ` # xhost +`
+ 	6) ` # vi /tmp/install/install` and remove `-silent` flag
+ 	7) ` # /tmp/install/intall`
+ 	8) go through all steps until error (popup should raise)
+ 	9) ` # cp /u01/app/oracle/product/12.1.0/dbhome_1/javavm/jdk/jdk6/lib/libjavavm12.a /u01/app/oracle/product/12.1.0/dbhome_1/lib/`
+ 	10) click *retry* on error popup
+ 	11) after successfull installation proceed from step 8
+  
 6) ` # /tmp/install/install` (takes about 5m)
 ```
 Tue Sep 16 08:48:00 UTC 2014
